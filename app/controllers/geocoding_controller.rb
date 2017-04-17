@@ -15,11 +15,13 @@ class GeocodingController < ApplicationController
     # The street address that the user typed is in the variable @street_address.
     # ==========================================================================
 
-formatted_address=@street_address.chop.gsub(" ","+")
-url="https://maps.googleapis.com/maps/api/geocode/json?address=&key=AIzaSyBlCSeWcVZjtkYmpnoWkWdZ5l3_3VcgfvI"
-website=url.insert 58, formatted_address
+# formatted_address=@street_address.chop.gsub(" ","+")
+# url="https://maps.googleapis.com/maps/api/geocode/json?address=&key=AIzaSyBlCSeWcVZjtkYmpnoWkWdZ5l3_3VcgfvI"
+# website=url.insert 58, formatted_address
 
-parsed_data = JSON.parse(open(website).read)
+url="https://maps.googleapis.com/maps/api/geocode/json?address=#{@street_address}"
+
+parsed_data = JSON.parse(open(url).read)
 latitude = parsed_data["results"][0]["geometry"]["location"]["lat"]
 longitude = parsed_data["results"][0]["geometry"]["location"]["lng"]
 
